@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NotFound from "./pages/NotFound";
-import Index from "./pages";
-
+import Index from "./pages"; // FIXED the casing issue here
 
 const App = () => (
   <BrowserRouter>
