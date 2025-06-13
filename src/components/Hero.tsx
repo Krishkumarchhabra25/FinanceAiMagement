@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
+import useAuth from "@/hooks/useAuth";
 import { motion } from "framer-motion";
 import { 
   ArrowDown, TrendingUp, Wallet, Play, 
  Shield, Zap, Brain, Users 
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -15,6 +17,12 @@ const fadeIn = {
 };
 
 const Hero = () => {
+  const navigate = useNavigate();
+  const {isAuthenticated }= useAuth()
+
+  const handleAnalyticsDashboard = ()=>{
+    navigate(isAuthenticated ? "/dashboard" : "/signin")
+  }
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 flex items-center justify-center overflow-hidden">
       
@@ -97,7 +105,7 @@ const Hero = () => {
             variants={fadeIn}
             custom={0.8}
           >
-            <Button size="lg" className="px-8 py-4 text-lg bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+            <Button   onClick={handleAnalyticsDashboard} size="lg" className="px-8 py-4 text-lg bg-gradient-to-r from-blue-600 to-green-600 hover:from-blue-700 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
               <Wallet className="w-5 h-5 mr-2" />
               Start Advanced Analytics
             </Button>
