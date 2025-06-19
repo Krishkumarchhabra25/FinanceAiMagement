@@ -4,7 +4,6 @@ import {
   ArrowDown, TrendingUp, Wallet, Play, 
  Shield, Zap, Brain, Users 
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },

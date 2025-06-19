@@ -4,7 +4,6 @@ import Index from "./pages/index"; // Home page
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import SignIn from "./pages/auth/SignIn";
 import SignUp from "./pages/auth/SignUp";
-import ProtectedRoute from "./components/ProtectedRoutes";
 import Analytics from "./pages/dashboard/analytics/Analytics";
 
 import DashboardHome from "./pages/dashboard/DashboardHome";

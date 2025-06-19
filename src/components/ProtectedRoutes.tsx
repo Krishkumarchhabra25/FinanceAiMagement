@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+/* mport { Navigate } from "react-router-dom";
 import type { ReactNode } from "react";
 
 interface ProtectedRouteProps {
@@ -12,3 +12,4 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 };
 
 export default ProtectedRoute;
+ */
