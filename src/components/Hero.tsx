@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import useAuth from "@/hooks/useAuth";
 import { motion } from "framer-motion";
 import { 
   ArrowDown, TrendingUp, Wallet, Play, 
@@ -17,11 +16,10 @@ const fadeIn = {
 };
 
 const Hero = () => {
-  const navigate = useNavigate();
-  const {isAuthenticated }= useAuth()
+ // const navigate = useNavigate();
 
   const handleAnalyticsDashboard = ()=>{
-    navigate(isAuthenticated ? "/dashboard" : "/signin")
+ //   navigate(isAuthenticated ? "/dashboard" : "/signin")
   }
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 flex items-center justify-center overflow-hidden">
