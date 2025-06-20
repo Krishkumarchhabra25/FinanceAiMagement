@@ -1,9 +1,12 @@
 import { Button } from "@/components/ui/button";
+import { AuthContext } from "@/context/AuthContext";
 import { motion } from "framer-motion";
 import { 
   ArrowDown, TrendingUp, Wallet, Play, 
  Shield, Zap, Brain, Users 
 } from "lucide-react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -15,11 +18,17 @@ const fadeIn = {
 };
 
 const Hero = () => {
- // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const handleAnalyticsDashboard = ()=>{
- //   navigate(isAuthenticated ? "/dashboard" : "/signin")
-  }
+  const auth = useContext(AuthContext);
+
+   const handleAnalyticsDashboard = () => {
+    if (auth && auth.token) {
+      navigate("/dashboard");
+    } else {
+      navigate("/signin");
+    }
+  };
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 flex items-center justify-center overflow-hidden">
       

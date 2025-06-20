@@ -11,20 +11,34 @@ import Cards from "./pages/dashboard/Cards/Cards";
 import Transactions from "./pages/dashboard/Transactions/Transactions";
 import Wallet from "./pages/dashboard/Wallet/Wallet";
 import Reports from "./pages/dashboard/Reports/Reports";
+import ProtectedRoute from "./components/ProtectedRoutes";
+import PublicRoute from "./components/PublicRoute";
+import OAuthCallback from "./pages/auth/OAuthCallback";
 
 const App = () => (
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Index />} />
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/signup" element={<SignUp />} />
+   <Route path="/signin" element={
+  <PublicRoute>
+    <SignIn />
+  </PublicRoute>
+} />
+   <Route path="/signup" element={
+    <PublicRoute>
+       <SignUp />
+    </PublicRoute>
+   } />
+
+   <Route path="/auth/callback/google" element={<OAuthCallback />} />
+<Route path="/auth/callback/github" element={<OAuthCallback />} />
 
       <Route 
         path="/dashboard/*" 
         element={
-        //  <ProtectedRoute>
+         <ProtectedRoute>
             <DashboardLayout />
-         // </ProtectedRoute>
+          </ProtectedRoute>
         }
       >
         <Route index element={<DashboardHome />} /> 

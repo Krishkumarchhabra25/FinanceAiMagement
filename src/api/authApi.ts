@@ -14,6 +14,9 @@ interface RegisterPayload {
     name: string ,
 }
 
+export interface OAuthPayload {
+    code: string;
+}
 
 export const registerUser = async(data:RegisterPayload) : Promise<AuthResponse>=>{
     const response = await axiosConfig.post<AuthResponse>(`/auth/register-user` , data);
@@ -25,12 +28,12 @@ export const loginUser = async(data:LoginPayload) : Promise<AuthResponse> =>{
     return response.data
 }
 
-export const googleOauth = async(data:LoginPayload): Promise<AuthResponse> => {
+export const googleOauth = async(data:OAuthPayload): Promise<AuthResponse> => {
     const response = await axiosConfig.post<AuthResponse>(`/auth/oauth-google` , data);
     return response.data
 }
 
-export const githubauth = async(data:LoginPayload) : Promise<AuthResponse> => {
+export const githubauth = async(data:OAuthPayload) : Promise<AuthResponse> => {
     const response = await axiosConfig.post<AuthResponse>(`/auth/oauth-github` , data);
     return response.data
 }

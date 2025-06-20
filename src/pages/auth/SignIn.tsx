@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Github, Mail } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { loginUser } from "@/api/authApi";
@@ -24,6 +24,7 @@ const SignIn = () => {
 
   const {login} = useAuth();
 
+  const navigate = useNavigate()
 
 const initialValues: SignInFormValues = {
     email: "",
@@ -43,6 +44,7 @@ const handleLogin = async (
   try {
     const res = await loginUser(values);
     login(res); // from useAuth context
+    navigate("/dashboard")
     toast.success("Signed in successfully!");
   } catch (error) {
     console.error("Email login error:", error);
@@ -54,21 +56,21 @@ const handleLogin = async (
 
 
   const handleGoogleLogin = () => {
-    console.log("Google login clicked");
+   const redirectURI = `${window.location.origin}/auth/callback/google`; 
+    console.log(redirectURI)
+     const googleAuthURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}&redirect_uri=${redirectURI}&response_type=code&scope=openid%20email%20profile&prompt=consent&access_type=offline`;
+    window.location.href = googleAuthURL;
+
+    console.log('google reponse' , googleAuthURL)
   };
 
   const handleGithubLogin = () => {
-    console.log("GitHub login clicked");
+const redirectURI = `${window.location.origin}/auth/callback/github`;
+    const githubAuthURL = `https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_GITHUB_CLIENT_ID}&redirect_uri=${redirectURI}&scope=user:email`;
+    window.location.href = githubAuthURL;  
   };
 
-/*   const handleFacebookLogin = () => {
-    console.log("Facebook login clicked");
-  };
 
-  const handleEmailSignIn = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Email sign in");
-  }; */
 
   return (
        <div className="min-h-screen bg-black flex items-center justify-center p-4">

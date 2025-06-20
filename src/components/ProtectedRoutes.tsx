@@ -1,15 +1,19 @@
-/* mport { Navigate } from "react-router-dom";
-import type { ReactNode } from "react";
+ import { AuthContext } from "@/context/AuthContext";
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
 
 interface ProtectedRouteProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  //const { isAuthenticated } = useAuth();
+   const auth = useContext(AuthContext)
 
-  //return isAuthenticated ? <>{children}</> : <Navigate to="/signin" replace />;
+   if(!auth || !auth.token){
+    return <Navigate to={"/signin"} replace />
+   }
+
+   return <> {children} </>
 };
 
 export default ProtectedRoute;
- */
