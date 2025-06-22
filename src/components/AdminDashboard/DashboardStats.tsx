@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { TrendingUp, TrendingDown, DollarSign, CreditCard, Wallet, ArrowUp } from "lucide-react";
+import { TrendingUp, TrendingDown, DollarSign, CreditCard, Wallet } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const stats = [
