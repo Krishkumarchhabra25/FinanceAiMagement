@@ -40,6 +40,7 @@ export const walletValidationSchema = Yup.object({
   isActive: Yup.string().oneOf(["true", "false"], "Select Yes or No"),
 });
 
+
 const Wallet = () => {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -63,6 +64,15 @@ const Wallet = () => {
   const [editWallet, setEditWallet] = useState<WalletData | null>(null);
   const [viewWallet, setViewWallet] = useState<WalletData | null>(null);
   const [deletedWalletId, setDeletedWalletId] = useState<string | null>(null);
+
+    const accountTypes = [
+    "Saving",
+    "Current",
+    "Credit",
+    "Salary",
+    "NRI",
+    "PMJDY"
+  ];
 
   useEffect(() => {
     dispatch(fetchAllWallets());
@@ -205,53 +215,81 @@ const handleViewWallet = async (walletId: string) => {
                 {editWallet ? "Edit Bank Account" : "Add New Bank Account"}
               </DialogTitle>
             </DialogHeader>
-            <form onSubmit={formik.handleSubmit} className="space-y-4">
-              {fields.map((field) => (
-                <div key={field}>
-                  <Label className="text-slate-300 capitalize">
-                    {field.replace("_", " ")}
-                  </Label>
-                  <Input
-                    type={field === "balance" ? "number" : "text"}
-                    name={field}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values[field]}
-                    className="bg-slate-700 border-slate-600 text-white"
-                    placeholder={field}
-                  />
-                  {formik.touched[field] && formik.errors[field] && (
-                    <p className="text-red-500 text-sm">
-                      {formik.errors[field]}
-                    </p>
-                  )}
-                </div>
-              ))}
-              <div>
-                <Label className="text-slate-300">Is Active</Label>
-                <select
-                  name="isActive"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.isActive}
-                  className="bg-slate-700 border-slate-600 text-white w-full p-2 rounded"
-                >
-                  <option value="true">Yes</option>
-                  <option value="false">No</option>
-                </select>
-              </div>
-              <Button
-                type="submit"
-                className="w-full bg-slate-600 hover:bg-slate-500"
-                disabled={loading}
-              >
-                {loading
-                  ? "Saving..."
-                  : editWallet
-                  ? "Update Account"
-                  : "Add Account"}
-              </Button>
-            </form>
+<form onSubmit={formik.handleSubmit} className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+  {fields.map((field) => (
+    field === "type" ? (
+      // Dropdown for Account Type
+      <div key={field}>
+        <Label className="text-slate-300 capitalize">Account Type</Label>
+        <select
+          name={field}
+          value={formik.values[field]}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          className="bg-slate-700 border-slate-600 text-white w-full p-2 rounded"
+        >
+          <option value="">Select Account Type</option>
+          {accountTypes.map((typeOption) => (
+            <option key={typeOption} value={typeOption}>
+              {typeOption}
+            </option>
+          ))}
+        </select>
+        {formik.touched[field] && formik.errors[field] && (
+          <p className="text-red-500 text-sm">{formik.errors[field]}</p>
+        )}
+      </div>
+    ) : (
+      <div key={field}>
+        <Label className="text-slate-300 capitalize">
+          {field.replace("_", " ")}
+        </Label>
+        <Input
+          type={field === "balance" ? "number" : "text"}
+          name={field}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values[field]}
+          className="bg-slate-700 border-slate-600 text-white"
+          placeholder={field}
+        />
+        {formik.touched[field] && formik.errors[field] && (
+          <p className="text-red-500 text-sm">{formik.errors[field]}</p>
+        )}
+      </div>
+    )
+  ))}
+</div>
+  {/* Is Active Dropdown */}
+  <div>
+    <Label className="text-slate-300">Is Active</Label>
+    <select
+      name="isActive"
+      onChange={formik.handleChange}
+      onBlur={formik.handleBlur}
+      value={formik.values.isActive}
+      className="bg-slate-700 border-slate-600 text-white w-full p-2 rounded"
+    >
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
+  </div>
+
+  {/* Submit Button */}
+  <Button
+    type="submit"
+    className="w-full bg-slate-600 hover:bg-slate-500"
+    disabled={loading}
+  >
+    {loading
+      ? "Saving..."
+      : editWallet
+      ? "Update Account"
+      : "Add Account"}
+  </Button>
+</form>
           </DialogContent>
         </Dialog>
       </div>

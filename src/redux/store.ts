@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import walletReducer from './WalletSlice';
-
+import CardReducer from "./CardSlice"
 export const store = configureStore({
   reducer: {
     wallet: walletReducer,
+    card:CardReducer
   },
 });
 
