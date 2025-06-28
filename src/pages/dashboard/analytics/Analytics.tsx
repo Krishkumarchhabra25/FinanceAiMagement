@@ -2,6 +2,13 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { TrendingUp, TrendingDown, DollarSign, Target } from "lucide-react";
+import { ExpenseAnalysis } from "@/components/AIModules/ExpensesAnalysis";
+import { BudgetPrediction } from "@/components/AIModules/BudgetPrediction";
+import { FraudDetection } from "@/components/AIModules/FraudDetection";
+import { InvestmentRecommendations } from "@/components/AIModules/InvestmentReccomedation";
+import { CreditScorePrediction } from "@/components/AIModules/CreditScorePrediction";
+import { FinancialHealthScore } from "@/components/AIModules/FinancialHealthScore";
+
 
 const Analytics = () => {
   const monthlyData = [
@@ -49,9 +56,25 @@ const Analytics = () => {
       className="space-y-6"
     >
       <div>
-        <h1 className="text-4xl font-bold text-white mb-2">AI Analytics</h1>
-        <p className="text-slate-400">Intelligent insights into your financial patterns</p>
+        <h1 className="text-4xl font-bold text-white mb-2">AI Analytics Dashboard</h1>
+        <p className="text-slate-400">Comprehensive AI-powered financial insights and analysis</p>
       </div>
+
+      {/* Financial Health Score - Main Feature */}
+      <FinancialHealthScore />
+
+      {/* AI Modules Grid */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <ExpenseAnalysis />
+        <BudgetPrediction />
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <FraudDetection />
+        <InvestmentRecommendations />
+      </div>
+
+      <CreditScorePrediction />
 
       {/* AI Insights */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

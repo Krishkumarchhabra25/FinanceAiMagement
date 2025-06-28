@@ -2,6 +2,7 @@
 
 import axiosConfig from "@/axios_config/axios_instance";
 import type { CreditCardByIdResponse, CreditCardData, CreditCardRequest, CreditCardResponse } from "@/types/card";
+import type { TransactionData, TransactionDeleteResponse, TransactionListResponse, TransactionRequest, TransactionResponse } from "@/types/transaction";
 import type { WalletData, WalletRequest, WalletResponse } from "@/types/wallet";
 
 //Wallet Module Api Service
@@ -71,5 +72,36 @@ export const getCardByCardId = async(id: string): Promise<CreditCardByIdResponse
 
 export const deleteCardById = async(id:string):Promise<CreditCardResponse>=>{
   const response = await axiosConfig.delete(`/card/delete-Card/${id}`);
+  return response.data
+}
+
+
+//Transaction Module Services
+
+export const createTransaction = async (transactiondata:TransactionRequest):Promise<TransactionResponse> =>{
+  const reponse = await axiosConfig.post<TransactionResponse>(`/transaction/createTransaction` , transactiondata);
+  return reponse.data;
+}
+
+export const updateTransaction = async (id:string , transactiondata:TransactionRequest):Promise<TransactionResponse> => {
+  const response = await axiosConfig.put<TransactionResponse>(`/transaction/updateTransaction/${id}` , transactiondata);
+  return response.data
+}
+
+
+export const getAllTansactions = async ():Promise<TransactionListResponse> =>{
+  const response = await axiosConfig.get<TransactionListResponse>(`/transaction/getAll-transaction`);
+  return response.data;
+}
+
+
+export const getTransactionDetailsById = async (id: string): Promise<TransactionResponse> => {
+  const response = await axiosConfig.get<TransactionResponse>(`/transaction/getTransactionDetails/${id}`);
+  return response.data;
+};
+
+
+export const deleteTransactionById = async (id:string): Promise<TransactionDeleteResponse> =>{
+  const response = await axiosConfig.delete<TransactionDeleteResponse>(`/transaction/deleteTransaction/${id}`);
   return response.data
 }

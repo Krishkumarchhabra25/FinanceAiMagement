@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import {
   Sidebar,
@@ -19,14 +18,24 @@ import {
   Receipt,
   Wallet,
   FileText,
+   CalendarDays,
+  Building,
+  RotateCcw,
+  Target,
 } from "lucide-react";
 
 const sidebarItems = [
   { title: "Dashboard", url: "/dashboard", icon: ChartBar },
+  { title: "Wallet", url: "/dashboard/wallets", icon: Wallet },
   { title: "Cards", url: "/dashboard/cards", icon: CreditCard },
   { title: "Transactions", url: "/dashboard/transactions", icon: Receipt },
+  { title: "Bills & EMI", url: "/dashboard/bills", icon: CalendarDays },
+  { title: "Loans & Debt", url: "/dashboard/loans", icon: Building },
+  { title: "Subscriptions", url: "/dashboard/subscriptions", icon: RotateCcw },
   { title: "Analytics", url: "/dashboard/analytics", icon: Calendar },
-  { title: "Wallet", url: "/dashboard/wallets", icon: Wallet },
+  
+  { title: "Budget", url: "/dashboard/budget", icon: Target },
+  { title: "Goals", url: "/dashboard/goals", icon: Target },
   { title: "Reports", url: "/dashboard/reports", icon: FileText },
 ];
 
@@ -37,64 +46,49 @@ export function AppSidebar() {
 
 
   return (
-    <Sidebar className={`${collapsed ? "w-16" : "w-64"} border-r border-slate-700 bg-slate-800/50 backdrop-blur-xl`}>
+    <Sidebar className={`${collapsed ? "w-16" : "w-64"} border-r border-gray-800 bg-black`}>
       <SidebarContent>
         {/* Logo */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="p-6 border-b border-slate-700"
-        >
+        <div className="p-6 border-b border-gray-800">
           {!collapsed ? (
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center space-x-3"
-            >
-              <div className="w-8 h-8 bg-gradient-to-r from-slate-600 to-slate-700 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">FM</span>
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gray-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">FA</span>
               </div>
-              <span className="text-white font-bold text-xl">FinanceAI</span>
-            </motion.div>
+              <span className="text-white font-semibold text-xl">FinanceAI</span>
+            </div>
           ) : (
-            <div className="w-8 h-8 bg-gradient-to-r from-slate-600 to-slate-700 rounded-lg flex items-center justify-center mx-auto">
-              <span className="text-white font-bold text-sm">FM</span>
+            <div className="w-8 h-8 bg-gray-600 rounded-lg flex items-center justify-center mx-auto">
+              <span className="text-white font-bold text-sm">FA</span>
             </div>
           )}
-        </motion.div>
+        </div>
 
         <SidebarGroup className="mt-6">
-          <SidebarGroupLabel className="text-slate-400 text-xs uppercase tracking-wider px-6 mb-4">
-            {!collapsed && "Main Menu"}
+          <SidebarGroupLabel className="text-gray-400 text-xs uppercase tracking-wider px-6 mb-4">
+            {!collapsed && "Navigation"}
           </SidebarGroupLabel>
           
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-2 px-3">
-              {sidebarItems.map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
-                      <NavLink
-                        to={item.url}
-                        className={({ isActive }) =>
-                          `flex items-center space-x-3 px-3 py-3 rounded-xl transition-all duration-200 ${
-                            isActive
-                              ? "bg-slate-700/50 text-white border border-slate-600"
-                              : "text-slate-400 hover:text-white hover:bg-slate-700/30"
-                          }`
-                        }
-                      >
-                        <item.icon className="w-5 h-5" />
-                        {!collapsed && <span className="font-medium">{item.title}</span>}
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </motion.div>
+            <SidebarMenu className="space-y-1 px-3">
+              {sidebarItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink
+                      to={item.url}
+                      className={({ isActive }) =>
+                        `flex items-center space-x-3 px-3 py-3 rounded-lg transition-colors ${
+                          isActive
+                            ? "bg-gray-800 text-white"
+                            : "text-gray-300 hover:bg-gray-800"
+                        }`
+                      }
+                    >
+                      <item.icon className="w-5 h-5" />
+                      {!collapsed && <span className="font-medium">{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
@@ -102,7 +96,7 @@ export function AppSidebar() {
       </SidebarContent>
       
       <div className="absolute top-6 right-3">
-        <SidebarTrigger className="text-slate-400 hover:text-white" />
+        <SidebarTrigger className="text-gray-400 hover:text-gray-300" />
       </div>
     </Sidebar>
   );

@@ -14,6 +14,11 @@ import Reports from "./pages/dashboard/Reports/Reports";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import PublicRoute from "./components/PublicRoute";
 import OAuthCallback from "./pages/auth/OAuthCallback";
+import BillsEmi from "./pages/dashboard/BillsAndEmi/BillsEmi";
+import LoansDebt from "./pages/dashboard/LoansAndDebt/LoansDebt";
+import Subscription from "./pages/dashboard/Subscription/Subscription";
+import Budget from "./pages/dashboard/Budget/Budget";
+import Goals from "./pages/dashboard/Goals/Goals";
 
 const App = () => (
   <BrowserRouter>
@@ -48,6 +53,12 @@ const App = () => (
 
         <Route path="wallets" element={<Wallet />} /> {/* /dashboard/users */}
         <Route path="reports" element={<Reports />} /> {/* /dashboard/users */}
+        <Route path="bills" element={<BillsEmi />} /> {/* /dashboard/users */}
+        <Route path="loans" element={<LoansDebt />} /> {/* /dashboard/users */}
+        <Route path="subscriptions" element={<Subscription />} /> {/* /dashboard/users */}
+
+        <Route path="goals" element={<Goals />} />
+        <Route path="budget" element={<Budget />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
