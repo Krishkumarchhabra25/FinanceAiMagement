@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Brain, CreditCard, TrendingUp, AlertCircle } from "lucide-react";
+import { Brain, CreditCard, TrendingUp } from "lucide-react";
 
 const scoreFactors = [
   { factor: "Payment History", impact: 85, weight: "35%", status: "excellent" },

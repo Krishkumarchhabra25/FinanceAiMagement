@@ -1,7 +1,6 @@
-import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid } from "recharts";
-import { Brain, TrendingUp, AlertTriangle } from "lucide-react";
+import { Brain, TrendingUp } from "lucide-react";
 
 const categoryData = [
   { name: "Food & Dining", value: 3200, color: "#8B5CF6", percentage: 32 },

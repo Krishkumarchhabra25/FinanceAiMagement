@@ -2,7 +2,7 @@
 
 import axiosConfig from "@/axios_config/axios_instance";
 import type { CreditCardByIdResponse, CreditCardData, CreditCardRequest, CreditCardResponse } from "@/types/card";
-import type { TransactionData, TransactionDeleteResponse, TransactionListResponse, TransactionRequest, TransactionResponse } from "@/types/transaction";
+import type {  TransactionDeleteResponse, TransactionListResponse, TransactionRequest, TransactionResponse } from "@/types/transaction";
 import type { WalletData, WalletRequest, WalletResponse } from "@/types/wallet";
 
 //Wallet Module Api Service

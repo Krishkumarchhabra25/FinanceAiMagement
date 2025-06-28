@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, TrendingUp, DollarSign, Target, Lightbulb } from "lucide-react";
+import { Brain, Lightbulb } from "lucide-react";
 
 const recommendations = [
   {
