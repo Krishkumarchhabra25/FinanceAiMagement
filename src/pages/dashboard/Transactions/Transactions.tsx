@@ -8,7 +8,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,7 +20,7 @@ import {
 } from "@/components/ui/select";
 ;
 import * as Yup from 'yup';
-import { useFormik } from "formik";import type { TransactionData, TransactionListResponse, TransactionRequest, TransactionResponse } from "@/types/transaction";
+import { useFormik } from "formik";
 import { useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/redux/store";
 import { createNewTransaction, deleteTransaction, fetchAllTransactions, fetchTransactionById, updateExistingTransaction } from "@/redux/TransactionSlice";
@@ -46,11 +45,13 @@ export const transactionValidationSchema = Yup.object().shape({
     .nullable()
     .notRequired(),
 
-  category: Yup.string()
-    .test('is-valid-category', 'Invalid category', (value) => {
-      return value === '' || categories.includes(value) || typeof value === 'string';
-    }),
-
+ category: Yup.string()
+  .test('is-valid-category', 'Invalid category', (value) => {
+    return (
+      value === '' ||
+      (typeof value === 'string' && categories.includes(value))
+    );
+  }),
   description: Yup.string()
     .required('Description is required')
     .trim(),

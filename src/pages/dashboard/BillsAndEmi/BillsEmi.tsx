@@ -8,12 +8,25 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Calendar, AlertTriangle, CheckCircle, Clock, Edit, Trash2, Eye } from "lucide-react";
+import type {  Bill } from "@/context/FinanceContext"; // Type alias
+
 import { useFinance } from "@/context/FinanceContext";
-;
+
+
+
+type NewBillForm = {
+  name: string;
+  amount: string;
+  dueDate: string;
+  category: string;
+  autopay: boolean;
+  cardId: string;
+};
 
 const BillsEmi = () => {
-  const { bills, cards, addBill, updateBill, deleteBill } = useFinance();
-  const [newBill, setNewBill] = useState({
+   const { bills, cards, addBill, updateBill, deleteBill } = useFinance();
+
+  const [newBill, setNewBill] = useState<NewBillForm>({
     name: "",
     amount: "",
     dueDate: "",
@@ -21,8 +34,9 @@ const BillsEmi = () => {
     autopay: false,
     cardId: ""
   });
-  const [editingBill, setEditingBill] = useState(null);
-  const [viewingBill, setViewingBill] = useState(null);
+
+  const [editingBill, setEditingBill] = useState<(NewBillForm & { id: string }) | null>(null);
+  const [viewingBill, setViewingBill] = useState<Bill | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
@@ -43,7 +57,7 @@ const BillsEmi = () => {
     }
   };
 
-  const handleEdit = (bill) => {
+  const handleEdit = (bill: Bill) => {
     setEditingBill({
       ...bill,
       amount: bill.amount.toString(),
@@ -67,27 +81,35 @@ const BillsEmi = () => {
     }
   };
 
-  const handleView = (bill) => {
+  const handleView = (bill: Bill) => {
     setViewingBill(bill);
     setIsViewDialogOpen(true);
   };
 
-  const getStatusIcon = (status) => {
+  const getStatusIcon = (status: Bill["status"]) => {
     switch (status) {
-      case 'paid': return <CheckCircle className="w-5 h-5 text-green-400" />;
-      case 'pending': return <Clock className="w-5 h-5 text-yellow-400" />;
-      case 'overdue': return <AlertTriangle className="w-5 h-5 text-red-400" />;
-      default: return <Clock className="w-5 h-5 text-slate-400" />;
+      case "paid":
+        return <CheckCircle className="w-5 h-5 text-green-400" />;
+      case "pending":
+        return <Clock className="w-5 h-5 text-yellow-400" />;
+      case "overdue":
+        return <AlertTriangle className="w-5 h-5 text-red-400" />;
+      default:
+        return <Clock className="w-5 h-5 text-slate-400" />;
     }
   };
 
-  const getCardName = (cardId) => {
-    const card = cards.find(c => c.id === cardId);
+  const getCardName = (cardId?: string) => {
+    const card = cards.find((c) => c.id === cardId);
     return card ? card.name : "No card selected";
   };
 
-  const totalPending = bills.filter(b => b.status === 'pending').reduce((sum, b) => sum + b.amount, 0);
-  const totalOverdue = bills.filter(b => b.status === 'overdue').reduce((sum, b) => sum + b.amount, 0);
+  const totalPending = bills
+    .filter((b) => b.status === "pending")
+    .reduce((sum, b) => sum + b.amount, 0);
+  const totalOverdue = bills
+    .filter((b) => b.status === "overdue")
+    .reduce((sum, b) => sum + b.amount, 0);
 
   return (
     <motion.div
